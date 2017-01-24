@@ -1,0 +1,63 @@
+<!-- Form to get task from the user and isert to collection *****************************-->
+<template name="getTasksForm">
+	<!--<h1>Put all your tasks in one place</h1>-->
+	
+			<div class="group-add-some-task">
+				<button class="btn-primary js-btn-add-task add-new-task">
+					<span class="glyphicon glyphicon-plus" aria-hiden="true"></span>
+				</button>
+				<h3 class="js-change-add-task-status add-some-task">Add some task&nbsp;{{actualUser}}</h3>
+			</div>
+			<div class="clear"></div>
+			<form class="add-task">
+				<fieldset>	
+					<legend>Task Title and Detail</legend>
+					<input type="text" name="taskTitle" value="" placeholder="Add task title" id="taskTitle" />
+					<input type="text" name="taskDetail" value="" placeholder="Add your task here" id="taskDetail" />
+				</fieldset>
+				
+				<fieldset>
+					<legend>Date and Time</legend>
+					<div class="input-group date-time" id="startDate">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						<input class="set-start-date form-control startDateInput get-task-datetime" type="text" placeholder="choose a starting date" />
+					</div>	
+				
+					<div class="input-group date-time" id="startTime">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+						<input class="set-start-time form-control startTimeInput get-task-datetime" type="text" placeholder="choose a starting time" />
+					</div>
+				
+					<div class="input-group date-time" id="dueDate">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						<input class="set-due-date form-control endDateInput get-task-datetime" type="text" placeholder="choose a due date" />
+					</div>
+				
+					<div class="input-group dueTimeDatetimepicker date-time" id="dueTime">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+						<input class="set-due-time form-control dueTimeInput get-task-datetime" type="text" placeholder="choose a due time" />
+					</div>
+			    </fieldset>
+			    
+				<input type="submit" value="Submit Task" placeholder="" class="btn-primary add-task center-block" />
+				
+			</form>
+		
+		<div class="col-md-6">
+			
+		</div>
+	
+	{{> modalAlert}}
+	<script>
+		$(document).ready(function() {
+			$("form").hide();
+		});
+		
+		$(document).ready(function() {
+		$(".navbar li").removeClass("active"); 
+		$("li.task-title-window").addClass("active");
+		$("li.tasks-window").addClass("active");
+		//$("li.tasks-title-list").addClass("active");
+	});
+	</script>
+</template>

@@ -1,0 +1,36 @@
+<!-- Help page content, show the user how to use this app **************************************-->
+<template name="helpPage">
+{{#if currentUser}}
+<div class="container help-content">
+	<h1 class="not-homepage">How to use this app</h1>
+	<div class="row help-page">
+		{{> breadcrumbsTaskHelpActive}}
+		<div class="col-md-12">
+			<img src="description.png" class="help" alt="Task window description" title="Description" width="" height="" />
+		</div>
+	</div>
+	<div class="row help-page">
+		<h2>To add Task with starting date and time</h2>
+		<div class="col-md-12">
+			<img src="form.png" class="help" alt="Adding a task with start date and time" title="task form to fill" width="" height="" />
+			<img src="added_task.png" class="help" alt="New task added" title="A task added" width="" height="" />
+		</div>
+	</div>
+	<div class="row help-page">
+		<h2>Sharing tasks and Edit</h2>
+		<div class="col-md-12">
+			<img src="sharings.png" class="help" alt="Saring and editing a task" title="Sharing and editing" width="" height="" />
+			<img src="edit_title_and_detail.png" class="help" alt="Edite title and detail" title="Edit title and detail" width="" height="" />
+		</div>
+	</div>
+</div> <!-- / container help-content -->
+	<script>
+	$(document).ready(function() {
+		$(".navbar li").removeClass("active");
+		$("li.tasks-help").addClass("active");
+	});
+	</script>
+{{else}}
+	{{> welcomePage }}
+{{/if}}
+</template>

@@ -1,0 +1,49 @@
+<!-- Display individual task window in detail mode when clicked the corresponded link in the simple list-->
+<template name="taskDetail">
+{{#if currentUser}}
+	<h1 class="not-homepage">Task Detail</h1>
+	{{> breadcrumbsTaskDetailActive}}
+	<ol class="order-number">
+		<li  id="{{_id}}" class="task-number">  
+			<div class="row task">
+		   	<div class="col-md-12 title form-insert-task">
+		  			<h4 class="title-text">
+						{{#if isTaskDetailOwner}}
+							{{> editableText collection="todotasks" field="taskTitle"}}
+						{{else}}
+							{{taskTitle}}
+						{{/if}}
+						</h4>
+					<button class="btn-warning pull-right button-delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+		  		</div> <!-- col -->
+			</div> <!-- row -->
+						
+			<div class="row">
+		  		<div class="col-md-6 taskElements taskContent">
+					<p class="task-item">
+						{{#if isTaskDetailOwner}}
+							{{> editableText collection="todotasks" field="taskDetail"}}
+						{{else}}
+							{{taskDetail}}
+						{{/if}}
+					</p>
+				</div> 
+				<!-- Count down group -->
+				<div class="col-md-2 countdown countdownContent">
+					<div id="clockdiv">
+						<div>
+							<p class="remaining-days"> {{daysOrHours}} </p>
+						</div>
+					</div>
+				</div>
+				<!-- / count down group -->
+			</div> <!-- row -->
+			{{> dateAndTime_Starting_Ending}}
+	 	</li>
+	</ol>
+	{{> modalDeleteConfirm}}
+	{{else}}
+	{{> welcomePage }}
+{{/if}}
+</template>

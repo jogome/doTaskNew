@@ -1,0 +1,43 @@
+<!-- Display only a list of tasks as a simple mode to see them ************************-->
+<template name="taskTitleList">
+{{#if currentUser}}
+    <h1 class="not-homepage">Task list</h1>
+	<div class="task-title-wrapper">
+		{{> getTasksForm}}
+		{{> breadcrumbsTaskListActive}}
+		<div class="row task">
+					<div class="col-md-12 title form-insert-task"></div> <!-- top of the task lists box-->
+		</div> <!-- row -->
+		<div class="task-title-list">
+			<div class="row">
+				<div class="col-md-8">
+					<ol class="list-order-number">
+					{{#each titleList}}
+						<li class="simple-task-title-list">
+							<a href="/detail/{{_id}}" class="task-title-link">{{taskTitle}}</a> <input type="checkbox" name="taskdone" class="checkbox task-list-checkbox" {{checkBox}} />
+							<!--{{#if checkBox}}
+							<button class="btn-warning pull-right button-task-list">
+								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							</button>
+							{{/if}}-->			
+						</li>
+					{{/each}}
+					</ol>
+				</div>
+			</div>	
+			{{> modalDeleteConfirm}}
+		</div> <!-- container-->
+	</div>
+
+	<script>
+	$(document).ready(function() {
+		$(".navbar li").removeClass("active");
+		$("li.task-title-window").addClass("active"); // Drop down 
+		$("li.tasks-title-list").addClass("active");
+		//$("li.tasks-window").addClass("active");
+	});
+	</script>
+	{{else}}
+	{{> welcomePage }}
+{{/if}}	
+</template>

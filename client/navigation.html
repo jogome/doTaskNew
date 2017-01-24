@@ -1,0 +1,35 @@
+<!-- Navigation group and login system **********************************************-->
+<template name="navigation">
+	<nav class="navbar navbar-default main-nav navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">
+					<img alt="Brand" class="dotask-brand" src="logo.png">
+				</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active home"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+					{{#if currentUser}}
+					<li class="tasks-window"><a href="/task_windows">Tasks</a></li>
+					<li class="tasks-title-list"><a href="/task_title_list">Tasks List</a></li>
+					<li class="tasks-help"><a href="/task_help">Help</a></li>
+					{{/if}}
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+				{{#if currentUser}}
+						{{> loginButtons}} 
+				{{/if}}
+				</ul>
+			</div> <!-- / .navbar-collapse -->
+		</div> <!-- / .container-fluid -->
+</nav>
+</template>

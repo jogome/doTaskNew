@@ -1,0 +1,262 @@
+<head>
+  <title>doTask</title>
+  <meta charset="UTF-8">
+</head>
+
+<!-- Defining the layout of the app *****************************-->
+<template name="ApplicationLayout">
+	{{> yield "navbar"}}
+	
+	<div class="container task-manager">
+		{{> yield "main"}}
+	</div>
+</template>
+
+
+<!-- **********  USERS LIST ********** -->
+<!-- All users of the system, from here a user can make a personal list of friends ****-->
+<template name="usersTemplate">
+{{#if currentUser}}
+	<h1 class="not-homepage">System users list</h1>
+	{{> breadcrumbsListOfAllUsers}}
+	<ol>
+	{{#each usersList}}
+		<li class="users personal-friend">{{profile.firstName}} {{profile.lastName}} 
+			<input type="button" class="btn btn-primary js-add-to-personal-list friend-list" value="Add to personal list">
+		</li>
+	{{/each}}
+	</ol>
+	
+	<script>
+	$(document).ready(function() {
+		$(".navbar li").removeClass("active");
+		$("li.users-list-share").addClass("active"); // Drop down
+		$("li.users-list").addClass("active");
+		//$("li.users-list-share").addClass("active");
+	});
+	</script>
+	{{else}}
+	{{> welcomePage }}
+{{/if}}
+</template>
+
+<!--  Search users by name an the system ******************************************-->
+<template name="searchBox">
+{{#if currentUser}}
+	<div class="container search-container">
+			<h1 class="not-homepage">System users list</h1>
+			{{> breadcrumbsListOfAllUsers}}
+			<!--
+			<h4>
+				<a href="/sites_list"> 
+					<span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>Return to Site List</a>
+			</h4>
+			-->
+			<span class="glyphicon glyphicon-search search-users" id="forsearch" aria-hidden="true">
+	
+			{{> EasySearch.Input index=usersIndex }}
+			
+			</span>
+			<div style="width: 100%;height: 5em;"></div> 
+			
+			
+			<ul>
+				{{#EasySearch.Each index=usersIndex}}
+					<li class="users system-users-list">{{profile.firstName}} {{profile.lastName}}
+						<input type="button" class="btn btn-primary js-add-to-personal-list friend-list" value="Add to personal list">
+					</li>
+				{{/EasySearch.Each}}
+			</ul>
+	</div> <!-- / container -->
+	<script>
+	$(document).ready(function() {
+		$(".navbar li").removeClass("active");
+		$("li.users-list").addClass("active");
+	});
+	</script>
+	{{else}}
+{{> welcomePage }}
+{{/if}}
+</template>
+
+<!-- ********** BREADCRUMBS ************************************************************** -->
+<!-- breadcrumbs for the page "Home" -->
+<template name="breadcrumbsHomeActive">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active">Home</li>
+	</ol>
+</template>
+
+<!-- breadcrumbs for the page "Main Task Windows" -->
+<template name="breadcrumbsTaskWindowActive">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item active">/ &nbsp;&nbsp;Tasks Window</li>
+	</ol>
+</template>
+
+<!-- breadcrumbs for the page "Task List" -->
+<template name="breadcrumbsTaskListActive">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item">/<a href="/task_windows">&nbsp;&nbsp;Tasks Window</a></li>
+		<li class="breadcrumb-item active">/ &nbsp;&nbsp;Tasks List</li>
+	</ol>
+</template>
+
+<!-- breadcrumbs for the page "Task Detail" -->
+<template name="breadcrumbsTaskDetailActive">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item">/<a href="/task_windows">/ &nbsp;&nbsp;Tasks Window</a></li>
+		<li class="breadcrumb-item">/<a href="/task_title_list">/&nbsp;&nbsp;Tasks List</a></li>
+		<li class="breadcrumb-item active">Task Detal</li>
+	</ol>
+</template>
+
+<!-- breadcrumbs for the page "How to use this app" -->
+<template name="breadcrumbsTaskHelpActive">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item">/<a href="/task_windows">&nbsp;&nbsp;Tasks Window</a></li>
+		<li class="breadcrumb-item">/<a href="/task_windows">&nbsp;&nbsp;Tasks List</a></li>
+		<li class="breadcrumb-item active">Help</li>
+	</ol>
+</template>
+
+<!-- breadcrumbs for the page "System users list" -->
+<template name="breadcrumbsListOfAllUsers">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item">/<a href="/task_windows"> &nbsp;&nbsp;Tasks Window</a></li>
+		<li class="breadcrumb-item">/<a href="/task_title_list">&nbsp;&nbsp;Tasks List</a></li>
+		<li class="breadcrumb-item active">All Users</li>
+	</ol>
+</template>
+
+<!-- breadcrumbs for the page "Personal friend list" -->
+<template name="breadcrumbsListOfPersonalFriends">
+	<ol class="breadcrumb list-friends-breadcrumb ">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item">/<a href="/task_windows">&nbsp;&nbsp;Tasks Window</a></li>
+		<li class="breadcrumb-item">/<a href="/task_windows">&nbsp;&nbsp;Tasks List</a></li>
+		<li class="breadcrumb-item">/<a href="/userlist">&nbsp;&nbsp;All Users</a></li>
+		<li class="breadcrumb-item active">Personal Friends</li>
+	</ol>
+</template>
+
+<!-- breadcrumbs for the page "Shared Content" -->
+<template name="breadcrumbsSharedContent">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item">/<a href="/task_windows">&nbsp;&nbsp;Tasks Window</a></li>
+		<li class="breadcrumb-item">/<a href="/task_windows">&nbsp;&nbsp;Tasks List</a></li>
+		<li class="breadcrumb-item">/<a href="/userlist">&nbsp;&nbsp;All Users</a></li>
+		<li class="breadcrumb-item">/<a href="/personalfriends">&nbsp;&nbsp;Personal Friend</a></li>
+		<li class="breadcrumb-item active">Shared contents</li>
+	</ol>
+</template>
+
+<!-- / BREADCRUMBS -->
+
+
+
+<!-- ********** MODALS  ****************************************************** -->
+
+<!-- Modal login -->
+<template name="login">
+	<!-- THIS MUST HAVE MORE WORK IN ORDER TO FUNCTIONATE PROPERLY -->
+	<div id="modalLoginBox" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+			  	<div class="modal-body modal-body-login">
+					<div id="login" class="form-signin">
+						
+							{{> loginButtons}} <!-- Log in and join -->
+						
+					</div>
+			  	</div>
+			</div>
+		</div> <!-- / modal dialog -->
+	</div> <!-- / modal -->	
+	<script>
+		$("a.dropdown-toggle").html('<h3 class="modal-login-header">Sign in / join</h3>'); 
+	</script>
+</template>
+
+<!-- Modal showed when deleting a post -->
+<template name="modalDeleteConfirm">
+	<div id="modalDeletePost" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header" style="">
+					<button tmodalLoginype="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="modal-header-delete"></h4>
+			  	</div>
+			  	<div class="modal-body">
+					<p id="modal-text-delete" style="font-size: 18px;"></p>
+			  	</div>
+			  	<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="cancel_delete">Cancel</button>
+					<button type="button" class="btn btn-warning" data-dismiss="modal" id="ok_delete">Yes</button>
+			  </div>
+			</div>
+		</div> <!-- / modal dialog -->
+	</div> <!-- / modal -->	
+</template>
+
+<!-- Modal to alert the user when needed -->
+<template name="modalAlert">
+	<div id="modalAlertWindow" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header" style="">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="modal-alert"></h4>
+			  	</div>
+			  	<div class="modal-body">
+					<p id="modal-text-alert" style="font-size: 18px;"></p>
+			  	</div>
+			  	<div class="modal-footer">
+					<button type="button" class="btn btn-warning" data-dismiss="modal" id="ok_thanks">OK</button>
+			  </div>
+			</div>
+		</div> <!-- / modal dialog -->
+	</div> <!-- / modal -->	
+</template>
+
+<!-- Modal to show the personal friend list when a user wants to make shares -->
+<template name="modalPersonalFriends">
+	<div id="modal-select-friend" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header" style="">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title"><span class="task-to-share-inform">Sharing:</span> {{taskTitle}} </h3>
+			  	</div>
+			  	<div class="modal-body">
+					{{> personalFriends comingFrom='modalPersonalFriends'}}
+			  	</div>
+			  	<div class="modal-footer">
+					<!--<button type="button" class="btn btn-primary cancel" data-dismiss="modal">Cancel</button>-->
+					<button type="button" class="btn btn-warning ok" data-dismiss="modal">Close Window</button>
+			  </div>
+			</div>
+		</div> <!-- / modal dialog -->
+	</div> <!-- / modal -->	
+	<script>
+		
+		$(document).ready(function() {
+			$(".navbar li").removeClass("active"); 
+			$("li.task-title-window").addClass("active");
+			$("li.tasks-window").addClass("active");
+			$("ol.list-friends-breadcrumb").hide();
+		});	
+	</script>
+</template>
+
+<!-- / MODALS -->

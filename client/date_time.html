@@ -1,0 +1,84 @@
+<!-- display the group of calendar and clock and share buttons and also the priority *********-->
+<template name="dateAndTime_Starting_Ending">	
+		<div class="wrapper-edit-date-time">
+		  {{#if isOwner}} <!-- This content only will be shown if the user is the owner of this task when the task is shared -->
+		  <summary class="js-toggle-edit-date-time-and-share-task edit-time-share" id="summary{{_id}}">Click to expand!</summary>
+		   <div class="toggle-box" id="mine{{_id}}"><!-- toggle -->
+		    <div class="row user-params-task edit-date"> <!-- row -->
+			 	<div class="col-md-3 task-parameter">
+					
+					<div class="input-group startDatetimepicker" id="startDate{{_id}}">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						<input class="set-start-date form-control startDateInput" type="text" placeholder="Edit starting date" />
+					</div>	
+			 	</div>
+			  	<div class="col-md-3 task-parameter">
+			  		<div class="input-group startTimeDatetimepicker">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+						<input class="set-start-time form-control startTimeInput" type="text" placeholder="Edit starting time" />
+					</div>
+			  	</div>
+			
+			   <div class="col-md-3 task-parameter">
+					<div class="input-group dueDatetimepicker" id="dueDate{{_id}}">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						<input class="set-due-date form-control endDateInput" type="text" placeholder="Edit due date" />
+					</div>
+			   </div>
+			   
+		      <div class="col-md-3 task-parameter">
+		      	    <div class="input-group dueTimeDatetimepicker">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+						<input class="set-due-time form-control dueTimeInput" type="text" placeholder="Edit due time" />
+					</div>
+		      </div>
+			</div> <!--/ row -->
+			<div class="row user-params-task"> <!-- row -->
+				<div class="col-md-12 task-parameter">
+					{{#if isOwner}}
+					<label class="sharings">Share this task</label>
+					<input type="checkbox" name="share" class="js-share share-public" title="Click to share" {{shareStatus}}>
+					{{/if}}
+				</div>
+			</div> <!-- / row -->
+			</div> <!-- / toggle -->
+			{{/if}}
+		</div> <!-- / wrapper-edit-date-time-->
+												
+		<div class="row user-params-task">
+		  <div class="col-md-3 task-parameter data-show">
+		  	<div class="js-task-priority {{priorityLevel}}"><p class="priority">{{#if priority}}<span class="normal">Normal Priority</span>
+		  	{{else}}<span class="normal">High Priority</span>{{/if}}</p></div>
+		  </div>
+		  <div class="col-md-3 task-parameter data-show">
+		  	<label>Owner:</label>   {{userFirtName}} 
+		  </div>
+		  <div class="col-md-3 task-parameter data-show">
+		  	<label>Created on:</label>   {{time}} 
+		  </div>
+		  <div class="col-md-3 task-parameter data-show">
+		  	<label>Check if done:&nbsp;&nbsp;&nbsp; {{#if checkBoxTaskDone}}<span class="task-done">Done</span>{{/if}}</label>
+		  	<input type="checkbox" name="taskdone" class="js-checkbox-task-done checkbox checkbox-done" {{checkBoxTaskDone}}>
+		  </div>
+		</div> <!-- row -->
+		
+		<div class="row user-params-task last-params-task">
+		  <div class="col-md-3 task-parameter data-show">
+		  	<label for="start">Start date:</label>   {{startDate}} 
+		  </div>
+		  <div class="col-md-3 task-parameter data-show">
+		  	<label for="start">Start time:</label>   {{startTime}} 
+		  </div>
+		  <div class="col-md-3 task-parameter data-show">
+		  	<label for="end">End date:</label>   {{endDate}} 
+		  </div>
+		  <div class="col-md-3 task-parameter data-show">
+		  	<label for="start">End Time:</label>   {{endTime}} 
+		  </div>
+		</div> <!-- row -->
+		<script>
+			$(document).ready(function() {
+				$(".toggle-box").hide();	
+			});
+		</script>
+</template>

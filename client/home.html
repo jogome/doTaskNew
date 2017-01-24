@@ -1,0 +1,34 @@
+<!-- Home page, giving the welcome to visitors -->
+<template name="welcomePage">
+ <div class="jumbotron jumbotron-welcome welcome">
+   <div class="container">
+	<!--{{> breadcrumbsHomeActive}} -->
+	<div class="home-page">
+		<h1 class="welcome-page">Welcome to doTask {{userName}}!</h1>
+		<h3>We invite you to put all your tasks in one place!</h3>
+	
+	{{#if currentUser}}
+	<p class="we-hope-you-enjoy">We hope you're enjoying this app!</p>
+	{{else}}
+	<a href="/task_windows" class="btn btn-large btn-info btn-enter-main start js-start">Sign in / Join</a>	
+	<div class="box-text-home-page">
+		<p>When we know what we have to do is a good step forward! 
+		   but when we know what we have to do and when we have a place
+		   where to register them and keep tracking of them in order 
+		   to not forget a single task is realy a big step forward. 
+		   With doTask we invite you to keep it simple!<br>
+		   The only thing you have to do is join us and start adding your tasks :) 
+		</p>
+	</div>
+	{{/if}}
+   </div>
+ </div> <!-- / container -->
+ </div><!-- / jumbotron -->
+	<script>
+	$(document).ready(function() {
+		$(".navbar li").removeClass("active");
+		$("li.home").addClass("active");
+	});
+	</script>
+	
+</template>
